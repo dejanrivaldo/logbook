@@ -46,6 +46,7 @@ class Logbook extends React.Component {
             koliOpt: [],
             logDate: [],
             searchRes: [],
+            noPLUsers: [],
 
             //ScanNomorKoli
             inputNoKoli: '',
@@ -53,8 +54,14 @@ class Logbook extends React.Component {
             //ScanNomorPL
             inputNoPL: '',
 
+            //BeratReal
+            BeratRealPL: 0,
+
             //InputSearch
             inputSearch: '',
+
+            //noPL
+
 
            modalDetailPLIsOpen: false,
            modalBeratTimbang: false,
@@ -111,6 +118,24 @@ class Logbook extends React.Component {
         }
            
         )
+    }
+
+    nomorPL = () => {
+        var url = 'http://10.0.111.94:1234/updateData?typePut=PutUpdateData'
+        var body = {
+            Bri_NoPL: this.state.inputNoPL,
+            THP_BeratTotalReal: parseInt(this.state.BeratRealPL)
+        }
+        Axios.put(url, body)
+        .then((response) => {
+            if(response.data.data) {
+                console.log(JSON.stringify(response.data.data))
+                this.setState({
+                    modalBeratTimbang:false,
+                    noPLUsers: response.data.data
+                })
+            }
+        })
     }
 
     dateLog = () => {
@@ -197,12 +222,20 @@ class Logbook extends React.Component {
         });
     }
 
-    onScanPLInputTextChange = (inputName, event) => {
+    onScanPLInputTextChange = (event) => {
         const value = event.target.value;
 
         this.setState({
-            ['inputNoPL' + inputName]: value
+            inputNoPL: value
         });
+    }
+
+    onBeratRealPLInputTextChange = (event) => {
+        const value = event.target.value;
+
+        this.setState({
+            BeratRealPL: value
+        })
     }
 
     onScanPLInputEnterPressed = (event) => {
@@ -307,7 +340,7 @@ class Logbook extends React.Component {
                                     <tr>
                                      <td>Scan Nomor PL:</td>
                                      <td>
-                                        <Input placeholder='Nomor PL' value={this.state.scanNomorPL} onInput={(event) => this.onScanPLInputTextChange('scanNomorPL', event)} onKeyPress={(event) => this.onScanPLInputEnterPressed(event)}>
+                                        <Input placeholder='Nomor PL' value={this.state.inputNoPL} onInput={(event) => this.onScanPLInputTextChange(event)} onKeyPress={(event) => this.onScanPLInputEnterPressed(event)}>
                                         </Input>
                                      </td>
                                      <td><Button color='primary' onClick={() => this.toggleDetailPLModal()}>Detail PL</Button></td>
@@ -338,35 +371,41 @@ class Logbook extends React.Component {
                             <Table striped bordered hover variant="dark" size='sm'>
                                 <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>Table heading</th>
-                                <th>Table heading</th>
-                                <th>Table heading</th>
-                                <th>Table heading</th>
-                                <th>Table heading</th>
-                                <th>Table heading</th>
+                                <th>No</th>
+                                <th>Nomor PL</th>
+                                <th>Berat Real</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
-                              
-                               
+                            {
                                     <tr>
-                                        <td>1</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
+                                        <td>{0}</td>
+                                        <td>{this.state.noPLUsers.Bri_NoPL}</td>
+                                        <td>{this.state.noPLUsers.THP_BeratTotalReal}</td>
+                                        
                                         
                                         <td align='center'>
                                             <Button size= 'sm' color= 'warning' style={{ marginRight:'1%' }}>Edit</Button>
                                             <Button size= 'sm' color= 'danger'style={{ marginLeft:'1%' }}>Delete</Button>                                            
                                             </td>
                                     </tr>
-                                      
-                            
+                            }
+                            {
+                                // this.state.noPLUsers.map((user, index)=> 
+                                //     <tr>
+                                //         <td>{index + 1}</td>
+                                //         <td>{user.Bri_NoPL}</td>
+                                //         <td>{user.BeratRealPL}</td>
+                                        
+                                        
+                                //         <td align='center'>
+                                //             <Button size= 'sm' color= 'warning' style={{ marginRight:'1%' }}>Edit</Button>
+                                //             <Button size= 'sm' color= 'danger'style={{ marginLeft:'1%' }}>Delete</Button>                                            
+                                //             </td>
+                                //     </tr>
+                                // )
+                            }
 
                               </tbody>
                             </Table>
@@ -455,7 +494,8 @@ class Logbook extends React.Component {
                     <ModalHeader><h3>Input Berat Timbang</h3></ModalHeader>
                     <ModalBody>
                         <Form>
-                            <Input placeholder='Berat Timbang'></Input>
+                            <Input placeholder='Berat Timbang' value={this.state.BeratRealPL} onInput={(event) => this.onBeratRealPLInputTextChange(event)}></Input>
+                            <Button color='success' onClick={() => this.nomorPL()} className='mt-2 mr-2'>Add</Button>
                             <Button color='danger' onClick={() => this.toggleBeratTambangModal()} className='mt-2'>Cancel</Button>
                         </Form>
                     </ModalBody>
