@@ -278,231 +278,374 @@ class Logbook extends React.Component {
         } = this.state
 
         return (
-                <div>
-                    <Particles className='d-flex justify-content-center' 
-                    params={particleOpt}
-                    width='1920px'
-                    height='120px'
-                    />
-                    <Card className>
-                     <CardHeader size='lg'>
-                         <Label size='lg' className='d-flex justify-content-center'>Logbook</Label>     
-                     </CardHeader>
+			<div>
+				<Particles
+					className="d-flex justify-content-center"
+					params={particleOpt}
+					width="1920px"
+					height="120px"
+				/>
+				<Card className>
+					<CardHeader size="lg">
+						<Label
+							size="lg"
+							className="d-flex justify-content-center"
+						>
+							Logbook
+						</Label>
+					</CardHeader>
 
-                     <CardBody>
-                         <Form>
-                             <Table>
-                                 <thead>
-                                     <tr></tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                         <td>Pilih DIST:
-                                         </td>
+					<CardBody>
+						<Form>
+							<Table>
+								<thead>
+									<tr></tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Pilih DIST:</td>
 
-                                    <td>
-                                        <Input type='select'>
-                                            <option>Select Your Option</option>
-                                            <option>1</option>
-                                        </Input>
-                                    </td>
-                                    </tr>
+										<td>
+											<Input type="select">
+												<option>
+													Select Your Option
+												</option>
+												<option>1</option>
+											</Input>
+										</td>
+									</tr>
 
-                                     <tr>
-                                     <td>Pilih CAB DIST:</td>
-                                     <td>
-                                        <Input type='select'>
-                                        <option>Select Your Option For CMB DIST</option>
-                                        <option>1</option>
-                                        </Input>
-                                     </td>
-                                     </tr>
+									<tr>
+										<td>Pilih CAB DIST:</td>
+										<td>
+											<Input type="select">
+												<option>
+													Select Your Option For CMB
+													DIST
+												</option>
+												<option>1</option>
+											</Input>
+										</td>
+									</tr>
+                                {/*<tr>
+										<td>Jenis Koli:</td>
+										<td>
+											<Input type="select">
+												<option>
+													Select Your Option
+												</option>
+												<option>1</option>
+											</Input>
+										</td>
+									</tr>
 
-                                    <tr>
-                                     <td>Jenis Koli:</td>
-                                     <td>
-                                        <Input type='select'>
-                                        <option>Select Your Option</option>
-                                        <option>1</option>
-                                        </Input>
-                                     </td>
-                                    </tr>
+									<tr>
+										<td>Scan Nomor Koli:</td>
+										<td>
+											<Input
+												placeholder="Nomor Koli"
+												value={this.state.scanNomorKoli}
+												onInput={event =>
+													this.onScanKoliInputTextChange(
+														"scanNomorKoli",
+														event
+													)
+												}
+											></Input>
+										</td>
+										<td>
+											<Button color="primary">
+												Change Koli
+											</Button>
+										</td>
+									</tr>
+                                            */}
+									
+									<tr>
+										<td>Scan Nomor PL:</td>
+										<td>
+											<Input
+												placeholder="Nomor PL"
+												value={this.state.inputNoPL}
+												onInput={event =>
+													this.onScanPLInputTextChange(
+														event
+													)
+												}
+												onKeyPress={event =>
+													this.onScanPLInputEnterPressed(
+														event
+													)
+												}
+											></Input>
+										</td>
+										<td>
+											<Button
+												color="primary"
+												onClick={() =>
+													this.toggleDetailPLModal()
+												}
+											>
+												Detail PL
+											</Button>
+										</td>
+									</tr>
 
-                                    <tr>
-                                     <td>Scan Nomor Koli:</td>
-                                     <td>
-                                        <Input placeholder='Nomor Koli' value={this.state.scanNomorKoli} onInput={(event) => this.onScanKoliInputTextChange('scanNomorKoli', event)}>
-                                        </Input>
-                                     </td>
-                                     <td><Button color='primary'>Change Koli</Button></td>
-                                    </tr>
-
-                                    <tr>
-                                     <td>Scan Nomor PL:</td>
-                                     <td>
-                                        <Input placeholder='Nomor PL' value={this.state.inputNoPL} onInput={(event) => this.onScanPLInputTextChange(event)} onKeyPress={(event) => this.onScanPLInputEnterPressed(event)}>
-                                        </Input>
-                                     </td>
-                                     <td><Button color='primary' onClick={() => this.toggleDetailPLModal()}>Detail PL</Button></td>
-                                    </tr>
-
-                                    <tr>
-                                     <td>Tanggal:</td>
-                                     <td>
-                                        <Input type='select'>
-                                        <option>16 - 03 - 2020</option>
-                                        </Input>
-                                     </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <Input type='checkbox' className='ml-1'/>
-                                            <Label className='ml-4'>Search</Label>
+									<tr>
+										<td>Tanggal:</td>
+										<td>
+											<Input type="select">
+												<option>16 - 03 - 2020</option>
+											</Input>
                                         </td>
-                                        <td>
-                                            <Input type='select'>Search Here</Input>
-                                            <Input value={this.state.searchRes} onInput={(event) => this.onSearchInputTextChange('searchRes')}/>
-                                        </td>
-                                    </tr>
-                                 </tbody>
-                             </Table>
-                             <hr color='red'/>
-                            <Table striped bordered hover variant="dark" size='sm'>
-                                <thead>
-                                <tr>
-                                <th>No</th>
-                                <th>Nomor PL</th>
-                                <th>Berat Real</th>
-                                <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                    <tr>
-                                        <td>{0}</td>
-                                        <td>{this.state.noPLUsers.Bri_NoPL}</td>
-                                        <td>{this.state.noPLUsers.THP_BeratTotalReal}</td>
-                                        
-                                        
-                                        <td align='center'>
-                                            <Button size= 'sm' color= 'warning' style={{ marginRight:'1%' }}>Edit</Button>
-                                            <Button size= 'sm' color= 'danger'style={{ marginLeft:'1%' }}>Delete</Button>                                            
-                                            </td>
-                                    </tr>
-                            }
-                            {
-                                // this.state.noPLUsers.map((user, index)=> 
-                                //     <tr>
-                                //         <td>{index + 1}</td>
-                                //         <td>{user.Bri_NoPL}</td>
-                                //         <td>{user.BeratRealPL}</td>
-                                        
-                                        
-                                //         <td align='center'>
-                                //             <Button size= 'sm' color= 'warning' style={{ marginRight:'1%' }}>Edit</Button>
-                                //             <Button size= 'sm' color= 'danger'style={{ marginLeft:'1%' }}>Delete</Button>                                            
-                                //             </td>
-                                //     </tr>
-                                // )
-                            }
+                                        <td></td>
+									</tr>
 
-                              </tbody>
-                            </Table>
-                         </Form>    
-                     </CardBody>
-                     <CardFooter className='d-flex justify-content-center'>
-                        <Button color='primary'>Add</Button>
-                        <Button className='ml-5' color='primary'>Save</Button>
-                        <Button className='ml-5' color='secondary'>Print</Button>
-                        <Button className='ml-5' color='secondary'>Print Label</Button>
-                        <Button className='ml-5' color='warning'>Cancel</Button>
-                     </CardFooter>
-                 </Card>
+									<tr>
+										<td>
+											<Input
+												type="checkbox"
+												className="ml-1"
+											/>
+											<Label className="ml-4">
+												Search
+											</Label>
+										</td>
+										<td>
+											<Input type="select">
+												Search Here
+											</Input>
+                                            <Input
+                                                className='mt-3'
+												value={this.state.searchRes}
+												onInput={event =>
+													this.onSearchInputTextChange(
+														"searchRes"
+													)
+												}
+											/>
+										</td>
+									</tr>
+								</tbody>
+							</Table>
+							<hr color="red" />
+							<Table
+								striped
+								bordered
+								hover
+								variant="dark"
+								size="sm"
+							>
+								<thead>
+									<tr>
+										<th>Nomor PL</th>
+										<th>Tanggal PL</th>
+										<th>Nomor DO</th>
+										<th>Depo</th>
+										<th>Tujuan</th>
+										<th>Penerima</th>
+										<th>Cab Distributor</th>
+										<th>Total Berat Coli</th>
+										<th>Total Proc</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{
+										<tr>
+											<td>
+												{this.state.noPLUsers.Bri_NoPL}
+											</td>
+											<td>
+												{
+													this.state.noPLUsers
+														.THP_BeratTotalReal
+												}
+											</td>
+											<td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+											<td align="center">{0}</td>
+                                            <td></td>
+											<td align="center">
+												<Button
+													size="sm"
+													color="warning"
+													style={{
+														marginRight: "1%"
+													}}
+												>
+													Edit
+												</Button>
+												<Button
+													size="sm"
+													color="danger"
+													style={{ marginLeft: "1%" }}
+												>
+													Delete
+												</Button>
+											</td>
+										</tr>
+									}
+									{
+										// this.state.noPLUsers.map((user, index)=>
+										//     <tr>
+										//         <td>{index + 1}</td>
+										//         <td>{user.Bri_NoPL}</td>
+										//         <td>{user.BeratRealPL}</td>
+										//         <td align='center'>
+										//             <Button size= 'sm' color= 'warning' style={{ marginRight:'1%' }}>Edit</Button>
+										//             <Button size= 'sm' color= 'danger'style={{ marginLeft:'1%' }}>Delete</Button>
+										//             </td>
+										//     </tr>
+										// )
+									}
+								</tbody>
+							</Table>
+						</Form>
+					</CardBody>
+					<CardFooter className="d-flex justify-content-center">
+						<Button color="primary">Add</Button>
+						<Button className="ml-5" color="primary">
+							Save
+						</Button>
+						<Button className="ml-5" color="secondary">
+							Print
+						</Button>
+						<Button className="ml-5" color="secondary">
+							Print Label
+						</Button>
+						<Button className="ml-5" color="warning">
+							Cancel
+						</Button>
+					</CardFooter>
+				</Card>
 
-                 {/*Modal Detail PL */}
+				{/*Modal Detail PL */}
 
-                 <Modal centered
-                    isOpen={this.state.modalDetailPLIsOpen} size='lg'>
-                    <ModalHeader><h3>Input Berat Real</h3></ModalHeader>
-                    <ModalBody className='m-3'>
-                        <Form>
-                            <FormGroup>
-                                <Table striped bordered hover variant="dark">
-                                    <thead>
-                                        <tr>
-                                            <th>No PL</th>
-                                            <th>Tanggal PL</th>
-                                            <th>No DO</th>
-                                            <th>No Coli</th>
-                                            <th>Berat PL</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#####</td>
-                                            <td>#####</td>
-                                            <td>#####</td>
-                                            <td>#####</td>
-                                            <td>#####</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </FormGroup>
-                            <FormGroup>
-                                <Table>
-                                    <tbody>
-                                        
-                                        <tr>
-                                        <td><Label>Total PL</Label></td>
-                                        <td><Input placeholder='Total PL'></Input></td>
-                                        </tr>
+				<Modal
+					centered
+					isOpen={this.state.modalDetailPLIsOpen}
+					size="lg"
+				>
+					<ModalHeader>
+						<h3>Input Berat Real</h3>
+					</ModalHeader>
+					<ModalBody className="m-3">
+						<Form>
+							<FormGroup>
+								<Table striped bordered hover variant="dark">
+									<thead>
+										<tr>
+											<th>No PL</th>
+											<th>Tanggal PL</th>
+											<th>No DO</th>
+											<th>No Coli</th>
+											<th>Berat PL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>#####</td>
+											<td>#####</td>
+											<td>#####</td>
+											<td>#####</td>
+											<td>#####</td>
+										</tr>
+									</tbody>
+								</Table>
+							</FormGroup>
+							<FormGroup>
+								<Table>
+									<tbody>
+										<tr>
+											<td>
+												<Label>Total PL</Label>
+											</td>
+											<td>
+												<Input placeholder="Total PL"></Input>
+											</td>
+										</tr>
 
-                                        <tr>
-                                        <td><Label>Total Procode</Label></td>
-                                        <td><Input placeholder='Total Procode'></Input></td>
-                                        </tr>
+										<tr>
+											<td>
+												<Label>Total Procode</Label>
+											</td>
+											<td>
+												<Input placeholder="Total Procode"></Input>
+											</td>
+										</tr>
 
-                                        <tr>
-                                        <td><Label>Total Berat</Label></td>
-                                        <td><Input placeholder='Total Berat'></Input></td>
-                                        </tr>
+										<tr>
+											<td>
+												<Label>Total Berat</Label>
+											</td>
+											<td>
+												<Input placeholder="Total Berat"></Input>
+											</td>
+										</tr>
 
-                                        <tr>
-                                        <td><Label>Total Berat Real</Label></td>
-                                        <td><Input placeholder='Total Berat Real'></Input></td>
-                                        </tr>
-   
-                                    </tbody>
-                                 
-                                </Table>
-                            </FormGroup>
-                    <ModalFooter>
-                             
+										<tr>
+											<td>
+												<Label>Total Berat Real</Label>
+											</td>
+											<td>
+												<Input placeholder="Total Berat Real"></Input>
+											</td>
+										</tr>
+									</tbody>
+								</Table>
+							</FormGroup>
+							<ModalFooter>
+								<Button color="success" className="mr-2">
+									OK
+								</Button>
+								<Button
+									color="danger"
+									onClick={() => this.toggleDetailPLModal()}
+								>
+									Cancel
+								</Button>
+							</ModalFooter>
+						</Form>
+					</ModalBody>
+				</Modal>
 
-                            <Button color='success' className='mr-2'>OK</Button>
-                            <Button color= 'danger' onClick={() => this.toggleDetailPLModal()}>Cancel</Button>
-                    </ModalFooter>
-                        </Form>
-                    </ModalBody>
-                 </Modal>
-
-            
-                {/*Modal Enter Input Scan No PL*/}
-                 <Modal centered size='sm'
-                 isOpen={this.state.modalBeratTimbang}>
-                    <ModalHeader><h3>Input Berat Timbang</h3></ModalHeader>
-                    <ModalBody>
-                        <Form>
-                            <Input placeholder='Berat Timbang' value={this.state.BeratRealPL} onInput={(event) => this.onBeratRealPLInputTextChange(event)}></Input>
-                            <Button color='success' onClick={() => this.nomorPL()} className='mt-2 mr-2'>Add</Button>
-                            <Button color='danger' onClick={() => this.toggleBeratTambangModal()} className='mt-2'>Cancel</Button>
-                        </Form>
-                    </ModalBody>
-                 </Modal>
-                </div>
-
-        )
+				{/*Modal Enter Input Scan No PL*/}
+				<Modal centered size="sm" isOpen={this.state.modalBeratTimbang}>
+					<ModalHeader>
+						<h3>Input Berat Timbang</h3>
+					</ModalHeader>
+					<ModalBody>
+						<Form>
+							<Input
+								placeholder="Berat Timbang"
+								value={this.state.BeratRealPL}
+								onInput={event =>
+									this.onBeratRealPLInputTextChange(event)
+								}
+							></Input>
+							<Button
+								color="success"
+								onClick={() => this.nomorPL()}
+								className="mt-2 mr-2"
+							>
+								Add
+							</Button>
+							<Button
+								color="danger"
+								onClick={() => this.toggleBeratTambangModal()}
+								className="mt-2"
+							>
+								Cancel
+							</Button>
+						</Form>
+					</ModalBody>
+				</Modal>
+			</div>
+		);
     }
 }
 
